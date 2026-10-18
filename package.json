@@ -1,0 +1,19 @@
+{
+  "name": "komis-starter",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "typecheck": "tsc -p jsconfig.json",
+    "check:syntax": "node --check src/check-db.js",
+    "check-db": "node src/check-db.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "pg": "^8.13.3"
+  },
+  "devDependencies": {
+    "typescript": "^5.8.3",
+    "@types/node": "^22.14.0",
+    "@types/pg": "^8.11.13"
+  }
+}

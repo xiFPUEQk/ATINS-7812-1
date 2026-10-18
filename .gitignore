@@ -1,0 +1,13 @@
+# Sekrety
+.env
+.env.*
+!.env.example
+
+# Zależności
+node_modules/
+
+# Ustawienia lokalne VS Code
+.vscode/
+
+# Logi
+*.log

@@ -27,7 +27,8 @@ async function verifyDb() {
             console.log('Wniosek: Baza wymaga inicjalizacji (Krok 7).');
         }
     } catch (error) {
-        console.error('Błąd podczas weryfikacji bazy:', error.message);
+        const message = error instanceof Error ? error.message : String(error);
+        console.error('Błąd podczas weryfikacji bazy:', message);
     } finally {
         await pool.end();
     }

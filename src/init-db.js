@@ -26,7 +26,8 @@ async function initDb() {
         
         console.log('Schemat komisu został zainicjalizowany.');
     } catch (error) {
-        console.error('Błąd:', error.message);
+        const message = error instanceof Error ? error.message : String(error);
+        console.error('Błąd:', message);
     } finally {
         await client.end();
     }

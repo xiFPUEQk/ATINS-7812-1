@@ -9,7 +9,6 @@ async function listCars() {
     try {
         console.log('Pobieranie ofert samochodów z bazy Neon...');
         
-        // Krok 9
         const result = await pool.query(`
             SELECT 
                 b.name AS "Marka",
@@ -23,7 +22,8 @@ async function listCars() {
         
         console.table(result.rows);
     } catch (error) {
-        console.error('Błąd podczas odczytu danych:', error.message);
+        const message = error instanceof Error ? error.message : String(error);
+        console.error('Błąd podczas odczytu danych:', message);
     } finally {
         await pool.end();
     }

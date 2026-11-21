@@ -4,12 +4,12 @@ import { S3Client, HeadObjectCommand } from "@aws-sdk/client-s3";
 dotenv.config({ path: '.env.local' });
 
 const storage = new S3Client({
-  region: process.env.AWS_REGION,
-  endpoint: process.env.AWS_ENDPOINT_URL_S3,
-  forcePathStyle: true, // <--- TO ROZWIĄZUJE BŁĄD
+  region: process.env.AWS_REGION || "",
+  endpoint: process.env.AWS_ENDPOINT_URL_S3 || "",
+  forcePathStyle: true,
   credentials: {
-    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
+    accessKeyId: process.env.AWS_ACCESS_KEY_ID || "",
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY || ""
   }
 });
 
@@ -23,7 +23,9 @@ async function checkObject() {
     console.log("SUKCES: Kod widzi obiekt w Storage!");
     console.log("Rozmiar pliku:", response.ContentLength, "bajtów");
   } catch (err) {
-    console.error("BŁĄD:", err.name, err.message);
+    const errName = err instanceof Error ? err.name : "Error";
+    const errMessage = err instanceof Error ? err.message : String(err);
+    console.error("BŁĄD:", errName, errMessage);
   }
 }
 

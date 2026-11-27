@@ -88,6 +88,23 @@ const server = http.createServer(async (req, res) => {
         error: 'Błąd wewnętrzny serwera'
       });
     }
+  }else if (url.pathname === '/api/db-check' && method === 'GET') {
+    try {
+      const result = await pool.query(
+        'SELECT current_database() AS database, current_user AS "user", NOW() AS now;'
+      );
+      return sendJson(res, 200, {
+        connected: true,
+        ...result.rows[0]
+      });
+    } catch (err) {
+      const message = err instanceof Error ? err.message : 'Nieznany błąd';
+      console.error('Błąd połączenia z Neon:', message);
+      return sendJson(res, 500, {
+        connected: false,
+        error: 'Błąd połączenia z bazą danych'
+      });
+    }
   }
 
   return sendJson(res, 404, {
